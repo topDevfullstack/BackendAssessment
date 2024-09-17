@@ -168,6 +168,16 @@
      - How to test the endpoints.
      - Any additional features or considerations.
 
+---
+
+## Stay in Touch
+
+If you need to contact me directly, feel free to connect with me on LinkedIn: (https://www.linkedin.com/in/ude/).
+
+For general questions or project-related discussions, please use GitHub Issues.
+
+---
+
 ## Evaluation Criteria
 
 - **Functionality:** Verify that core features work as described.
