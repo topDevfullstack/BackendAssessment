@@ -1,10 +1,10 @@
-# Backend Developer Assessment: Voice AI Agent
+# Backend Developer Assessment: AI-Driven Backend System
 
 ## Project Overview
 
-**Task:** Develop a backend system for a Voice AI Agent. The system will handle audio input, process it, and generate responses using AI. This project is designed to be completed within 5-10 hours with basic functionality, but the bonus tasks offer a chance to demonstrate advanced skills.
+**Task:** Develop a backend system that integrates a database, API, and deployment for an AI-driven application. The system will handle user input, process it using AI, and store relevant data in a database. This project is designed to be completed within 5-10 hours with basic functionality, but the bonus tasks offer a chance to demonstrate advanced skills.
 
-**Timeline:** 16/09/2024 to 23/09/2024 (British Time)
+**Timeline:** 08/10/2024 to 11/10/2024 (British Time)
 
 **Languages/Frameworks:** 
 - **Frontend:** Next.js, TypeScript, HTML, CSS (provided template)
@@ -14,32 +14,32 @@
 
 ## Core Requirements
 
-### 1. Audio Input Processing
+### 1. User Input and Data Storage
 
-- **Endpoint:** `POST /upload`
-  - **Description:** Accepts audio files (.wav or .mp3) from the user.
+- **Endpoint:** `POST /api/input`
+  - **Description:** Accepts user input and stores it in the database.
   - **Request:**
     ```json
     {
-      "file": "audio_file.wav"
+      "userInput": "User's text input goes here."
     }
     ```
   - **Response:**
     ```json
     {
-      "transcription": "Transcribed text goes here."
+      "message": "Input received and stored."
     }
     ```
-  - **Service:** Integrate with a Speech-to-Text API, such as Google Cloud Speech-to-Text or AWS Transcribe.
+  - **Database:** Use a relational or NoSQL database (e.g., PostgreSQL, MongoDB) to store user input and relevant data.
 
-### 2. AI-Based Response Generation
+### 2. AI Processing
 
-- **Endpoint:** `POST /response`
-  - **Description:** Generates a response based on the transcribed text.
+- **Endpoint:** `POST /api/process`
+  - **Description:** Processes the user input using an AI model and generates a response.
   - **Request:**
     ```json
     {
-      "text": "Transcribed text goes here."
+      "inputId": "Unique identifier for user input."
     }
     ```
   - **Response:**
@@ -48,11 +48,11 @@
       "response": "AI-generated response text goes here."
     }
     ```
-  - **Service:** Integrate with an NLP API like OpenAI’s GPT-3 or GPT-4.
+  - **Service:** Integrate with an AI API like OpenAI’s GPT-3 or GPT-4 for response generation.
 
 ### 3. Basic Authentication (Optional)
 
-- **Endpoint:** `POST /login`
+- **Endpoint:** `POST /api/login`
   - **Description:** Authenticates the user and provides a JWT token.
   - **Request:**
     ```json
@@ -67,8 +67,8 @@
       "token": "JWT token goes here."
     }
     ```
-
-- **Middleware:** Implement JWT authentication for `/upload` and `/response` endpoints.
+  
+- **Middleware:** Implement JWT authentication for `/api/input` and `/api/process` endpoints.
 
 ### 4. Deployment
 
@@ -78,68 +78,62 @@
 
 - **Task:** Provide a detailed architecture and design document for your backend system.
   - **Requirements:**
-    - **System Architecture Diagram:** Show how different components (e.g., API endpoints, third-party services) interact.
-    - **Data Flow Diagram:** Illustrate the flow of data from user input to response generation.
+    - **System Architecture Diagram:** Show how different components (e.g., API endpoints, database, third-party services) interact.
+    - **Data Flow Diagram:** Illustrate the flow of data from user input to AI processing and storage.
     - **Design Decisions:** Describe any key design decisions made, including why certain technologies or approaches were chosen.
   - **Format:** Include diagrams and descriptions in your GitHub repository or as a separate document.
 
 ## Bonus Tasks (Optional but encouraged)
 
-1. **Context Management:**
-   - Implement advanced context management to handle multiple sessions and maintain conversation state over time.
-   - Store and manage session history to allow the AI agent to have contextually aware conversations.
-   - **Example:** Maintain a conversation history for each user session, allowing the AI to reference previous interactions.
+1. **Session Management:**
+   - Implement session management to track user interactions and maintain context across multiple requests.
+   - Store session data to enable more personalized responses.
 
 2. **Multi-Language Support:**
-   - Integrate multilingual support for both speech-to-text and text-to-speech services.
+   - Integrate multilingual support for user inputs and AI responses.
    - Ensure the system can process and respond in multiple languages based on user input.
-   - **Example:** Use language detection to switch between supported languages and provide responses in the detected language.
 
-3. **Customizable Voice Agent Personality:**
-   - Allow users to select different "personalities" for the voice agent, such as formal, casual, or humorous.
-   - Customize the AI responses based on the selected personality to make interactions more engaging.
-   - **Example:** Provide a configuration endpoint where users can set their preferred personality, and modify response generation logic accordingly.
+3. **Custom User Profiles:**
+   - Allow users to create and manage profiles, storing preferences for interactions with the AI.
+   - Example: Store user preferences for response styles or topics of interest.
 
 4. **CI/CD Integration:**
-   - Set up a comprehensive CI/CD pipeline to automate testing and deployment.
+   - Set up a CI/CD pipeline to automate testing and deployment.
    - Use a platform like GitHub Actions or CircleCI to automate build, test, and deployment processes.
-   - **Example:** Create workflows for automated testing, linting, and deployment to a staging environment before production.
 
 ## User Stories
 
-1. **Audio Input Processing:** 
-   - "As a user, I can upload an audio file, and the system will convert my speech to text."
+1. **User Input Storage:** 
+   - "As a user, I can submit my input, and it will be stored in the database for processing."
 
 2. **AI Response Generation:**
-   - "As a user, after my speech is converted to text, I receive a response from the AI agent based on my input."
+   - "As a user, I can request an AI-generated response based on my stored input."
 
-3. **Real-Time Interaction:**
-   - "As a user, I can have a real-time conversation with the AI agent, where my audio is processed, and the system responds quickly."
+3. **Session Management:**
+   - "As a user, my interactions are remembered, allowing for more personalized responses."
 
 4. **Authentication:**
-   - "As a user, I must authenticate before interacting with the AI agent to ensure my session is private."
+   - "As a user, I must authenticate before interacting with the AI to ensure my session is secure."
 
 ## Frontend Flow (Basic UI)
 
-### 1. Audio Input
+### 1. User Input
 
-- **Microphone Button:** A button to start and stop audio recording.
-- **Upload Button:** Option to upload an audio file if recording is not preferred.
-- **Audio Recorder UI:** Displays recording status with visual feedback (e.g., waveform or indicator).
+- **Text Input Field:** A field for the user to enter their text input.
+- **Submit Button:** A button to submit the input to the backend.
+- **Loading Indicator:** Shows when the system is processing the input.
 
 ### 2. Interaction Display
 
-- **Transcription Display:** Shows the transcribed text from the user's audio input.
-- **AI Response Display:** Area to display the AI’s response text.
-- **Audio Playback (Optional):** Plays back the AI’s response if text-to-speech is implemented.
+- **Response Display:** Area to show the AI’s generated response.
+- **Error Handling:** Display messages for any errors or invalid inputs.
 
 ### Example Frontend Flow
 
 1. **User accesses the landing page.**
-2. **They click the microphone button to start recording.**
-3. **The audio is sent to the backend for processing.**
-4. **The transcribed text is displayed on the UI.**
-5. **The AI’s response is displayed, and optionally, audio playback is provided.**
+2. **They enter their input in the text field and click the submit button.**
+3. **The input is sent to the backend for processing.**
+4. **The AI’s response is displayed on the UI.**
 
 ## What You Should Provide
 
@@ -153,7 +147,7 @@
    - **Timeline:** Deadline for project submission.
 
 3. **Design/API Documentation:**
-   - Provide links or documentation for the Speech-to-Text and NLP APIs used.
+   - Provide links or documentation for the AI APIs used.
    - Include basic instructions for testing endpoints.
    - **Architecture/Design Documentation:** Include a system architecture diagram, data flow diagram, and explanations of design decisions.
 
